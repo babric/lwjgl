@@ -117,7 +117,7 @@ typedef struct {
 
 @interface GLLayer : CAOpenGLLayer {
 	@public
-	JAWT_MacOSXDrawingSurfaceInfo *macosx_dsi;
+	JAWT_DrawingSurfaceInfo *macosx_dsi;
 	JAWT_Rectangle canvasBounds;
 	MacOSXWindowInfo *window_info;
 	bool setViewport;
