@@ -15,7 +15,7 @@
 		</condition>
 
 		<property name="sdk_path" value="Platforms/MacOSX.platform/Developer/SDKs"/>
-		<property name="jvm_headers_path" value="System/Library/Frameworks/JavaVM.framework/Versions/A/Headers"/>
+		<property name="jvm_headers_path" value="System/Library/Frameworks/JavaNativeFoundation.framework/Versions/A/Headers"/>
 
 		<!-- Choose a JavaVM.framework -->
 		<condition property="javavmroot" value="${developer_path}/${sdk_path}/MacOSX.sdk">
