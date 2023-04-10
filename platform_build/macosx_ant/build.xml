@@ -15,7 +15,10 @@
 		</condition>
 
 		<property name="sdk_path" value="Platforms/MacOSX.platform/Developer/SDKs"/>
-		<property name="jvm_headers_path" value="System/Library/Frameworks/JavaNativeFoundation.framework/Versions/A/Headers"/>
+		
+				<!-- Choose a JDK -->
+		<property environment="env"/>
+		<property name="javavmroot" value="${env.JAVA_HOME}"/>
 
 		<!-- Choose a MacOSX SDK -->
 		<property name="compiler" value="clang"/>
@@ -39,7 +42,7 @@
 
 	<target name="compile" depends="init">
 		<apply dir="${dstdir}" executable="${compiler}" os="Mac OS X" skipemptyfilesets="true" failonerror="true" dest="${dstdir}">
-			<arg line="${cflags} -ObjC -O2 -Wall -Wunused -c -fPIC -I${java.home}/../include -I${java.home}/../include/darwin -I${native}/common -I${native}/common/opengl -I${native}/macosx"/>
+			<arg line="${cflags} -ObjC -O2 -Wall -Wunused -c -fPIC -I${javavmroot}/include -I${javavmroot}/include/darwin -I${native}/common -I${native}/common/opengl -I${native}/macosx"/>
 			<!-- Map from *.m and *.c to .o -->
 			<mapper type="regexp" from="^(.*)\.(c|m)" to="\1.o"/>
 			<fileset dir="${native}/macosx" includes="*.m"/>
@@ -73,7 +76,7 @@
 	<target name="nativelibrary" depends="init">
 		<echo message="        Compiler: ${compiler}"/>
 		<echo message="      Mac OS SDK: ${sdkroot}"/>
-		<echo message="JavaVM.framework: ${java.home}"/>
+		<echo message="JavaVM.framework: ${javavmroot}"/>
 
 		<condition property="build_x86_64" value="1">
 			<equals arg1="${compiler}" arg2="clang"/>
