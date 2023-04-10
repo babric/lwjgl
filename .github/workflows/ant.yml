@@ -6,13 +6,11 @@ jobs:
   build-natives:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-11]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         arch: [x64, x86]
         exclude:
-          - os: macos-11
+          - os: macos-latest
             arch: x86
-          - os: ubuntu-latest
-            arch: aarch64
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
@@ -26,14 +24,12 @@ jobs:
       run: sudo apt install libx11-dev libxrandr-dev libxext-dev libxcursor-dev libxxf86vm-dev
     - if: matrix.os == 'ubuntu-latest' && matrix.arch == 'x86'
       run: sudo dpkg --add-architecture i386 && sudo apt update && sudo apt install gcc-multilib libx11-dev:i386 libxrandr-dev:i386 libxext-dev:i386 libxcursor-dev:i386 libxxf86vm-dev:i386
-    - if: matrix.os == 'ubuntu-latest' && matrix.arch == 'aarch64'
-      run: sudo dpkg --add-architecture arm64 && sudo apt update && sudo apt install gcc-multilib libx11-dev:arm64 libxrandr-dev:arm64 libxext-dev:arm64 libxcursor-dev:arm64 libxxf86vm-dev:arm64
     - if: matrix.os == 'windows-latest'
       uses: ilammy/msvc-dev-cmd@v1
       with:
           arch: ${{ matrix.arch }}
-    - if: matrix.os == 'macos-11'
-      run: sudo xcode-select -s /Applications/Xcode_12.4.app/Contents/Developer
+    # - if: matrix.os == 'macos-latest'
+    #   run: sudo xcode-select -s /Applications/Xcode_12.4.app/Contents/Developer
     - name: Build natives
       run: ant generate-all compile_native
     - if: ${{ failure() }}
