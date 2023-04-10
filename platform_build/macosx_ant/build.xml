@@ -96,12 +96,12 @@
 		<antcall target="compile">
 			<param name="dstdir" location="i386"/>
 			<param name="sdkroot" location="${universal_sdkroot}"/>
-			<param name="cflags" value="${universal_flags} -arch i386 -mmacosx-version-min=10.5"/>
+			<param name="cflags" value="${universal_flags} -arch i386 -mmacosx-version-min=10.9"/>
 		</antcall>
 		<antcall target="compile">
 			<param name="dstdir" location="x86_64"/>
 			<param name="sdkroot" location="${universal_sdkroot}"/>
-			<param name="cflags" value="-isysroot ${x86_64_sdkroot} -arch x86_64 -mmacosx-version-min=10.5"/>
+			<param name="cflags" value="-isysroot ${x86_64_sdkroot} -arch x86_64 -mmacosx-version-min=10.9"/>
 		</antcall>
 		<exec vmlauncher="true" executable="sh" output="lwjgl.symbols" failonerror="true">
 			<arg path="../../platform_build/macosx_ant/build-symbol-list"/>
@@ -110,12 +110,12 @@
 		<antcall target="link">
 			<param name="objdir" location="i386"/>
 			<param name="libname" value="liblwjgl-i386.dylib"/>
-			<param name="linkerflags" value="${universal_flags} -arch i386 -mmacosx-version-min=10.5"/>
+			<param name="linkerflags" value="${universal_flags} -arch i386 -mmacosx-version-min=10.9"/>
 		</antcall>
 		<antcall target="link">
 			<param name="objdir" location="x86_64"/>
 			<param name="libname" value="liblwjgl-i86_64.dylib"/>
-			<param name="linkerflags" value="-isysroot ${x86_64_sdkroot} -arch x86_64 -mmacosx-version-min=10.5"/>
+			<param name="linkerflags" value="-isysroot ${x86_64_sdkroot} -arch x86_64 -mmacosx-version-min=10.9"/>
 		</antcall>
 		<apply dir="." parallel="true" executable="lipo" os="Mac OS X" failonerror="true" skipemptyfilesets="true">
 			<arg value="-create"/>
@@ -131,7 +131,7 @@
 		<antcall target="compile">
 			<param name="dstdir" location="x86_64"/>
 			<param name="sdkroot" location="${sdkroot}"/>
-			<param name="cflags" value="-isysroot ${sdkroot} -arch x86_64 -mmacosx-version-min=10.5"/>
+			<param name="cflags" value="-isysroot ${sdkroot} -arch x86_64 -mmacosx-version-min=10.9"/>
 		</antcall>
 		<exec vmlauncher="true" executable="sh" output="lwjgl.symbols" failonerror="true">
 			<arg path="../../platform_build/macosx_ant/build-symbol-list"/>
@@ -140,7 +140,7 @@
 		<antcall target="link">
 			<param name="objdir" location="x86_64"/>
 			<param name="libname" value="liblwjgl-i86_64.dylib"/>
-			<param name="linkerflags" value="-isysroot ${sdkroot} -arch x86_64 -mmacosx-version-min=10.5"/>
+			<param name="linkerflags" value="-isysroot ${sdkroot} -arch x86_64 -mmacosx-version-min=10.9"/>
 		</antcall>
 		<apply dir="." parallel="true" executable="lipo" os="Mac OS X" failonerror="true" skipemptyfilesets="true">
 			<arg value="-create"/>
