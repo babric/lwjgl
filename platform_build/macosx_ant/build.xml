@@ -17,14 +17,6 @@
 		<property name="sdk_path" value="Platforms/MacOSX.platform/Developer/SDKs"/>
 		<property name="jvm_headers_path" value="System/Library/Frameworks/JavaNativeFoundation.framework/Versions/A/Headers"/>
 
-		<!-- Choose a JavaVM.framework -->
-		<condition property="javavmroot" value="${developer_path}/${sdk_path}/MacOSX.sdk">
-			<and>
-				<not><isset property="javavmroot"/></not>
-				<available file="${developer_path}/${sdk_path}/MacOSX.sdk/${jvm_headers_path}" type="dir"/>
-			</and>
-		</condition>
-
 		<!-- Choose a MacOSX SDK -->
 		<property name="compiler" value="clang"/>
 
@@ -47,7 +39,7 @@
 
 	<target name="compile" depends="init">
 		<apply dir="${dstdir}" executable="${compiler}" os="Mac OS X" skipemptyfilesets="true" failonerror="true" dest="${dstdir}">
-			<arg line="${cflags} -ObjC -O2 -Wall -Wunused -c -fPIC -I${javavmroot}/${jvm_headers_path} -I${native}/common -I${native}/common/opengl -I${native}/macosx -framework JavaNativeFoundation"/>
+			<arg line="${cflags} -ObjC -O2 -Wall -Wunused -c -fPIC -I${java.home}/include -I${native}/common -I${native}/common/opengl -I${native}/macosx"/>
 			<!-- Map from *.m and *.c to .o -->
 			<mapper type="regexp" from="^(.*)\.(c|m)" to="\1.o"/>
 			<fileset dir="${native}/macosx" includes="*.m"/>
@@ -81,7 +73,7 @@
 	<target name="nativelibrary" depends="init">
 		<echo message="        Compiler: ${compiler}"/>
 		<echo message="      Mac OS SDK: ${sdkroot}"/>
-		<echo message="JavaVM.framework: ${javavmroot}"/>
+		<echo message="JavaVM.framework: ${java.home}"/>
 
 		<condition property="build_x86_64" value="1">
 			<equals arg1="${compiler}" arg2="clang"/>
