@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        arch: [x64, x86]
+        arch: [x64, x86, aarch64]
         exclude:
           - os: macos-latest
             arch: x86
@@ -24,6 +24,8 @@ jobs:
       run: sudo apt install libx11-dev libxrandr-dev libxext-dev libxcursor-dev libxxf86vm-dev
     - if: matrix.os == 'ubuntu-latest' && matrix.arch == 'x86'
       run: sudo dpkg --add-architecture i386 && sudo apt update && sudo apt install gcc-multilib libx11-dev:i386 libxrandr-dev:i386 libxext-dev:i386 libxcursor-dev:i386 libxxf86vm-dev:i386
+    - if: matrix.os == 'ubuntu-latest' && matrix.arch == 'aarch64'
+      run: sudo dpkg --add-architecture aarch64 && sudo apt update && sudo apt install gcc-multilib libx11-dev:aarch64 libxrandr-dev:aarch64 libxext-dev:aarch64 libxcursor-dev:aarch64 libxxf86vm-dev:aarch64
     - if: matrix.os == 'windows-latest'
       uses: ilammy/msvc-dev-cmd@v1
       with:
