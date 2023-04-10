@@ -22,5 +22,3 @@ LWJGL requires a JDK and Ant installed to compile, as well as your platforms nat
 * ant generate-all
 * ant compile
 * ant compile_native
-
-a
